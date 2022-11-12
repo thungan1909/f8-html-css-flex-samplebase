@@ -17,6 +17,11 @@ body {
 .nav {
     min-height: 42px;
     background-color: #EF5122;
+    /* Biến nav thành flex container */
+    display: flex; 
+    /* Đẩy các flex item cách xa nhau */
+    justify-content: space-between;
+
 }
 
 .nav-list {
@@ -41,12 +46,19 @@ body {
 
 .form__row {
     padding: 8px 0;
+    display: flex;
 }
 
 .form__label {
+    /* Cho chiều dài tối thiểu để đảm bảo input name và input password bắt đầu cùng 1 vị trí */
+    min-width: 90px;
+
 }
 
 .form__input {
+    /* Trong flex container có nhiều flex item, mà nếu có 1 flex item có giá trị flex >= 1,
+    thì nó sẽ cố gắng chiếm diện tính container càng nhiều càng tốt theo trục main axis */
+    flex: 1;
 }
 
 /* Column layout */
@@ -54,6 +66,7 @@ body {
     margin-top: 36px;
     padding: 12px 0;
     background-color: #fff;
+    display: flex;
 }
 
 .column-item {
@@ -61,28 +74,46 @@ body {
 }
 
 .sidebar-one {
+    flex: 1;
+    /* Sắp xếp vị trí các flex item */
+    /* order: 1 */
 }
 
 .sidebar-two {
+    flex: 1;
+     /* Sắp xếp vị trí các flex item */
+    /* order: 2 */
 }
 
 .main-column {
+    flex: 3;
+     /* Sắp xếp vị trí các flex item */
+    /* order: 3 */
 }
 
 /* Feature layout */
 .feature-layout {
     margin-top: 36px;
+    display: flex;
+    /* Căn các flex item ra để mỗi bên flex item để cách như nhau  */
+    justify-content: space-around;
+    /* Hướng các flex item nằm dọc nếu như là mobile */
+    flex-direction: column;
 }
 
 /* PC, Tablet */
 @media (min-width: 740px) {
     .feature-layout {
+        /* Hướng nằm ngang */
+        flex-direction: row;
     }
 }
 
 .feature-item {
     padding: 12px 16px;
     margin-top: 16px;
+    /* Độ rộng mỗi flex item */
+    flex-basis: 30%;
 }
 
 .feature-item:nth-child(1) {
@@ -102,6 +133,10 @@ body {
     background-color: #fff;
     margin-top: 36px;
     padding: 12px 0 32px 0;
+    display: flex;
+    justify-content: space-around;
+    /* Để thu nhỏ màn hình thì nó nhảy xuống dưới */
+    flex-wrap: wrap;
 }
 
 .wrap-layout__item {
@@ -114,6 +149,7 @@ body {
     font-weight: 700;
     margin-top: 20px;
     background-color: #EF5122;
+
 }
 
 /* Center layout */
@@ -123,11 +159,15 @@ body {
     padding: 32px 0;
     max-width: 640px;
     height: 360px;
+ 
+    display: flex;
 }
 
 .center-layout__item {
     font-size: 42px;
     font-weight: 700;
+    /* Căn giữa flex item */
+    margin: auto;
 }
 
 /* Chart layout */
@@ -136,38 +176,79 @@ body {
     padding: 32px 0;
     height: 320px;
     background-color: #fff;
+    display: flex;
+    /* Làm biểu đồ ngược lại*/
+    align-items: flex-end;
+    justify-content: space-around;
 }
 
 .chart-layout__item {
+    /* Làm biểu đồ ngược lại nhưng làm ở item
+    align-self: flex-end; */
     width: 60px;
     color: #fff;
     text-align: center;
     height: var(--percent);
     background-color: #EF5122;
+    /* Làm hiệu ứng animation */
+    animation: growth ease-in 0.5s; 
 }
-
+@keyframes growth {
+    from {
+        opacity: 0;
+        height: calc(var(--percent) - 50%);
+    }
+    to {
+        opacity: 1;
+        height: var(--percent);
+    }
+}
 /* End */
 .the-end {
     margin: 12px auto 48px auto;
     padding: 32px 0;
     max-width: 740px;
     min-height: 360px;
+    display: flex;
 }
 
 .the-end__first {
     padding: 4px 16px;
     background-color: #fff;
+    flex: 1;
 }
 
 .the-end__second {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .the-end__second-one {
+    flex: 1;
     padding: 4px 16px;
     background-color: rgb(227, 192, 214);
 }
 
 .the-end__second-two {
+    flex: 1;
     padding: 4px 16px;
     background-color: rgb(192, 210, 227);
 }
+/* 
+
+flex: 1
+điều này có nghĩa là:
+flex-grow: 1
+flex-shrink: 1
+flex-basis: 1
+
+_______________
+flex-flow
+có thể viết tắt nhanh thế này
+
+flex-flow: row wrap;
+thay vì phải viết
+flex-direction: row;
+flex-wrap: wrap;
+*/
